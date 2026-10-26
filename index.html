@@ -3,12 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Todo a Granel — Tienda online</title>
-<link rel="stylesheet" href="https://tiendasdebarrio.github.io/core/app.css">
+<title>Frutería — Tienda online</title>
+<style>.fi-load{font-family:system-ui,sans-serif;text-align:center;color:#999;padding:40px}</style>
 </head>
 <body>
 <div id="app"><div class="fi-load">Cargando tienda…</div></div>
-<script>window.COMERCIO = "todoagranel";</script>
-<script type="module" src="https://tiendasdebarrio.github.io/core/app.js"></script>
+<script>
+window.COMERCIO = "todoagranel";
+(function () {
+  var B = "https://tiendasdebarrio.github.io/core/";
+  fetch(B + "version.json?t=" + Date.now(), { cache: "no-store" })
+    .then(function (r) { return r.json(); })
+    .catch(function () { return { v: Date.now() }; })
+    .then(function (j) {
+      var l = document.createElement("link"); l.rel = "stylesheet"; l.href = B + "app.css?v=" + j.v; document.head.appendChild(l);
+      var s = document.createElement("script"); s.type = "module"; s.src = B + "app.js?v=" + j.v; document.body.appendChild(s);
+    });
+})();
+</script>
 </body>
 </html>
